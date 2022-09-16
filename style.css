@@ -38,13 +38,12 @@
 
   width: 95%;
   height: 95%;
-  background-color: coral;
-  transition: all 0.4s;
+  background-color: #fff3bf;
+  transition: all 0.25s;
+  border: 1px solid rgba(0,0,0,0.4);
 }
 
-.square--hover {
-  background-color: #fcc419;
-}
+
 
 /*********************************/
 /* RESET */

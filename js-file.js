@@ -13,7 +13,7 @@ function addAllSquares() {
   }
 
   //  Update All Square Hover
-  updateSquareHover()
+  updateSquareHover();
 
   //   Change square size
   squareContainers = document.querySelectorAll(".square-container");
@@ -37,26 +37,35 @@ function removeAllSquares() {
 // SQUARE HOVER
 ////////////////////////////
 
-function updateSquareHover(){
+function updateSquareHover() {
+  squares = document.querySelectorAll(".square");
 
-    squares = document.querySelectorAll(".square");
-    
-    squares.forEach((square) => {
-        square.addEventListener("mouseover", function (e) {
-            e.target.classList.add("square--hover");
-        });
+  squares.forEach((square) => {
+    square.addEventListener("mouseover", function (e) {
+      if (e.target.style.backgroundColor === "") {
+        e.target.style.backgroundColor = `#${Math.floor(
+          Math.random() * 16777215
+        ).toString(16)}`;
+        e.target.setAttribute("data-bright-level","10")
+        e.target.style.filter = "brightness(100%)"
+      }
+      else if (e.target.getAttribute("data-bright-level") > 0) {
+        bright = e.target.getAttribute("data-bright-level")
+        bright--
+        e.target.setAttribute("data-bright-level", bright)
+        e.target.style.filter = `brightness(${bright*10}%)`
+      }
     });
+  });
 }
-    
+
 ////////////////////////////
 // RESET
 ////////////////////////////
 
 const resetBTN = document.querySelector(".reset");
 resetBTN.addEventListener("click", function (e) {
-  squares.forEach((element) => {
-    element.classList.remove("square--hover");
-  });
+  updateGrid();
 });
 
 ////////////////////////////
