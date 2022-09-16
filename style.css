@@ -2,6 +2,15 @@
   padding: 0;
   margin: 0;
   box-sizing: content-box;
+
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+body {
+  background-color: #dee2e6;
 }
 
 /*********************************/
@@ -24,9 +33,8 @@
   justify-content: center;
 }
 
-.grid{
+.grid {
   display: grid;
-
 }
 
 .square-container {
@@ -35,22 +43,59 @@
 }
 
 .square {
-
   width: 95%;
   height: 95%;
   background-color: #fff3bf;
   transition: all 0.25s;
-  border: 1px solid rgba(0,0,0,0.4);
+  border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-
-
 /*********************************/
-/* RESET */
+/* Button Column */
 /*********************************/
+
+.btn-column {
+  width: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-rows-box{
+  width: 80%;
+  border: 1px solid black;
+  padding-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.number-rows-box button{
+  padding: 2px;
+}
 
 .reset {
-  width: 100px;
+  width: 80px;
+  height: 40px;
+  margin-top: 40px;
+}
+
+.number-rows {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn{
+  border: 1px solid black;
+  margin: -1px;
+  border-radius: 0px;
 }
 
 /*********************************/

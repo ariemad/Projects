@@ -46,14 +46,13 @@ function updateSquareHover() {
         e.target.style.backgroundColor = `#${Math.floor(
           Math.random() * 16777215
         ).toString(16)}`;
-        e.target.setAttribute("data-bright-level","10")
-        e.target.style.filter = "brightness(100%)"
-      }
-      else if (e.target.getAttribute("data-bright-level") > 0) {
-        bright = e.target.getAttribute("data-bright-level")
-        bright--
-        e.target.setAttribute("data-bright-level", bright)
-        e.target.style.filter = `brightness(${bright*10}%)`
+        e.target.setAttribute("data-bright-level", "10");
+        e.target.style.filter = "brightness(100%)";
+      } else if (e.target.getAttribute("data-bright-level") > 0) {
+        bright = e.target.getAttribute("data-bright-level");
+        bright--;
+        e.target.setAttribute("data-bright-level", bright);
+        e.target.style.filter = `brightness(${bright * 10}%)`;
       }
     });
   });
@@ -93,11 +92,19 @@ addEventListener("resize", updateGrid);
 
 lessRowBTN = document.querySelector(".less-row");
 moreRowBTN = document.querySelector(".more-row");
+less5RowBTN = document.querySelector(".less5-row");
+more5RowBTN = document.querySelector(".more5-row");
+
+function updateNumberRows() {
+  const numberRowsEL = document.querySelector(".number-rows");
+  numberRowsEL.textContent = numberSquaresHeight;
+}
 
 lessRowBTN.addEventListener("click", function (e) {
   if (numberSquaresHeight > 1) {
     numberSquaresHeight--;
     updateGrid();
+    updateNumberRows();
   }
 });
 
@@ -105,6 +112,23 @@ moreRowBTN.addEventListener("click", function (e) {
   if (numberSquaresHeight < 20) {
     numberSquaresHeight++;
     updateGrid();
+    updateNumberRows();
+  }
+});
+
+less5RowBTN.addEventListener("click", function (e) {
+  if (numberSquaresHeight > 5) {
+    numberSquaresHeight -= 5;
+    updateGrid();
+    updateNumberRows();
+  }
+});
+
+more5RowBTN.addEventListener("click", function (e) {
+  if (numberSquaresHeight < 16) {
+    numberSquaresHeight += 5;
+    updateGrid();
+    updateNumberRows();
   }
 });
 
