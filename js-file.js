@@ -1,0 +1,113 @@
+////////////////////////////
+// GRID
+////////////////////////////
+
+function addAllSquares() {
+  for (i = 0; i < numberSquaresHeight * numberSquaresWidth; i++) {
+    const squareContainer = document.createElement("div");
+    squareContainer.classList.add("square-container");
+    const square = document.createElement("div");
+    square.classList.add("square");
+    squareContainer.append(square);
+    gridEL.appendChild(squareContainer);
+  }
+
+  //  Update All Square Hover
+  updateSquareHover()
+
+  //   Change square size
+  squareContainers = document.querySelectorAll(".square-container");
+  squareContainers.forEach((element) => {
+    element.style.height = `${100 / numberSquaresHeight}vh`;
+    element.style.width = `${100 / numberSquaresHeight}vh`;
+  });
+  // Change number squares per column and row
+
+  gridEL.style.gridTemplateColumns = `repeat(${numberSquaresWidth}, 1fr)`;
+  gridEL.style.gridTemplateRows = `repeat(${numberSquaresHeight}, 1fr)`;
+}
+
+function removeAllSquares() {
+  while (gridEL.lastElementChild) {
+    gridEL.removeChild(gridEL.lastElementChild);
+  }
+}
+
+////////////////////////////
+// SQUARE HOVER
+////////////////////////////
+
+function updateSquareHover(){
+
+    squares = document.querySelectorAll(".square");
+    
+    squares.forEach((square) => {
+        square.addEventListener("mouseover", function (e) {
+            e.target.classList.add("square--hover");
+        });
+    });
+}
+    
+////////////////////////////
+// RESET
+////////////////////////////
+
+const resetBTN = document.querySelector(".reset");
+resetBTN.addEventListener("click", function (e) {
+  squares.forEach((element) => {
+    element.classList.remove("square--hover");
+  });
+});
+
+////////////////////////////
+// WINDOW RESIZE
+////////////////////////////
+
+// Default when opening window
+numberSquaresHeight = 6;
+
+function updateGrid() {
+  windowHeight = window.innerHeight;
+  windowWidth = window.innerWidth - 200;
+  numberSquaresWidth = Math.floor(
+    windowWidth / (windowHeight / numberSquaresHeight)
+  );
+  removeAllSquares();
+  addAllSquares();
+}
+
+addEventListener("resize", updateGrid);
+
+////////////////////////////
+// Change number of rows
+////////////////////////////
+
+lessRowBTN = document.querySelector(".less-row");
+moreRowBTN = document.querySelector(".more-row");
+
+lessRowBTN.addEventListener("click", function (e) {
+  if (numberSquaresHeight > 1) {
+    numberSquaresHeight--;
+    updateGrid();
+  }
+});
+
+moreRowBTN.addEventListener("click", function (e) {
+  if (numberSquaresHeight < 20) {
+    numberSquaresHeight++;
+    updateGrid();
+  }
+});
+
+////////////////////////////
+// MAIN
+////////////////////////////
+
+const containerEL = document.querySelector(".grid-container");
+
+const gridEL = document.createElement("div");
+gridEL.classList.add("grid");
+
+containerEL.append(gridEL);
+
+updateGrid();
