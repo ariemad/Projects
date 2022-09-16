@@ -90,6 +90,8 @@ addEventListener("resize", updateGrid);
 // Change number of rows
 ////////////////////////////
 
+maxSquaresHeight = 64
+
 lessRowBTN = document.querySelector(".less-row");
 moreRowBTN = document.querySelector(".more-row");
 less5RowBTN = document.querySelector(".less5-row");
@@ -109,7 +111,7 @@ lessRowBTN.addEventListener("click", function (e) {
 });
 
 moreRowBTN.addEventListener("click", function (e) {
-  if (numberSquaresHeight < 20) {
+  if (numberSquaresHeight < maxSquaresHeight) {
     numberSquaresHeight++;
     updateGrid();
     updateNumberRows();
@@ -117,16 +119,16 @@ moreRowBTN.addEventListener("click", function (e) {
 });
 
 less5RowBTN.addEventListener("click", function (e) {
-  if (numberSquaresHeight > 5) {
-    numberSquaresHeight -= 5;
+  if (numberSquaresHeight > 10) {
+    numberSquaresHeight -= 10;
     updateGrid();
     updateNumberRows();
   }
 });
 
 more5RowBTN.addEventListener("click", function (e) {
-  if (numberSquaresHeight < 16) {
-    numberSquaresHeight += 5;
+  if (numberSquaresHeight <= maxSquaresHeight - 10) {
+    numberSquaresHeight += 10;
     updateGrid();
     updateNumberRows();
   }
