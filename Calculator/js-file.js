@@ -31,8 +31,10 @@ function calculate(operator, a, b) {
 
 function displayNum() {
   display.textContent = memDisplay;
-  overloadCheck()
+  overloadCheck();
 }
+
+// ERROR
 
 function displayOperator(e) {
   display.textContent = e.target.textContent;
@@ -68,16 +70,42 @@ function divideByZero() {
   }, 2000);
 }
 
+function squareRootNegative() {
+  memDisplay = "ERROR";
+  displayNum();
+  setTimeout(() => {
+    memDisplay = "SQR NEG";
+    displayNum();
+  }, 1000);
+  setTimeout(() => {
+    firstNumber = 0;
+    secondNumber = "";
+    memOperator = "";
+    memDisplay = "";
+    displayNum();
+  }, 2000);
+}
+
 //Flag
 
 function isLastNumber(memDisplay) {
-  lastDigit = memDisplay[memDisplay.length - 1];
+  memDisplayArray = memDisplay.split("");
+  lastDigit = memDisplayArray[memDisplayArray.length - 1];
   digits = "0123456789".split("");
   if (lastDigit in digits) {
     return true;
   } else {
     return false;
   }
+}
+
+function isDot(memDisplay) {
+  memDisplayArray = memDisplay.split("");
+  if (memDisplayArray.indexOf(".") >= 0){
+    return true
+  }
+  return false
+
 }
 
 //Main
@@ -93,7 +121,13 @@ const btnsNum = document.querySelectorAll("[data-num]");
 
 const btnClear = document.querySelector("#clear");
 
-const btnPercentage = document.querySelector("#percentage")
+const btnPercentage = document.querySelector("#percentage");
+
+const btnSquareRoot = document.querySelector("#square-root");
+
+const btnNegative = document.querySelector("#negative");
+
+const btnDot = document.querySelector("#dot");
 
 const btnsOperation = document.querySelectorAll("[data-operation]");
 
@@ -168,18 +202,52 @@ btnClear.addEventListener("click", (e) => {
   displayNum();
 });
 
-btnPercentage.addEventListener("click", e => {
+btnPercentage.addEventListener("click", (e) => {
   if (secondNumber !== "" && isLastNumber(memDisplay)) {
     if (memOperator) {
-      memDisplay = memDisplay.slice(0,-secondNumber.length)
-      secondNumber = secondNumber/100
-      memDisplay += secondNumber
-      displayNum()
+      memDisplay = memDisplay.slice(0, -secondNumber.length);
+      secondNumber = String(secondNumber / 100);
+      memDisplay += secondNumber;
+      displayNum();
     } else {
-      secondNumber = secondNumber/100
-      memDisplay = secondNumber
-      displayNum()
+      secondNumber = String(secondNumber / 100);
+      memDisplay = secondNumber;
+      displayNum();
     }
   }
+});
 
+btnSquareRoot.addEventListener("click", (e) => {
+  if (secondNumber !== "" && isLastNumber(memDisplay)) {
+    if (secondNumber < 0) {
+      squareRootNegative()
+    } else if (memOperator != "") {
+      memDisplay = memDisplay.slice(0, -secondNumber.length);
+      secondNumber = String(round3Decimals(secondNumber ** (1 / 2)));
+      memDisplay += secondNumber;
+      displayNum();
+    } else {
+      secondNumber = String(round3Decimals(secondNumber ** (1 / 2)));
+      memDisplay = secondNumber;
+      displayNum();
+    }
+  }
+});
+
+btnNegative.addEventListener("click", e => {
+  if (secondNumber != ""){
+    memDisplay = memDisplay.slice(0, -secondNumber.length)
+    secondNumber = String(-secondNumber)
+    memDisplay += secondNumber
+    displayNum()
+  }
+})
+
+btnDot.addEventListener("click", e => {
+  secondNumber = String(secondNumber)
+  if (secondNumber != "" && !isDot(secondNumber)) {
+    secondNumber += "."
+    memDisplay += "."
+    displayNum()
+  }
 })
