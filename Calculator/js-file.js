@@ -30,7 +30,12 @@ function calculate(operator, a, b) {
 // Display
 
 function displayNum() {
-  display.textContent = memDisplay;
+  memDisplay = memDisplay.replace(/[\n\r]+|[\s]{2,}/g, '').trim()
+  if (memDisplay.length <= 8) {
+    display.textContent = memDisplay;
+  } else if (memDisplay.length > 8) {
+    display.textContent = ".." + memDisplay.slice(-9,-1);
+  }
   overloadCheck();
 }
 
@@ -41,15 +46,14 @@ function displayOperator(e) {
 }
 
 function overloadCheck() {
-  if (memDisplay.length > 8) {
-    memDisplay = "Overload";
-    displayNum();
+  if (String(secondNumber).length > 8) {
+    display.textContent = "Overload"
     setTimeout(() => {
       firstNumber = 0;
       secondNumber = "";
       memOperator = "";
       memDisplay = "";
-      displayNum();
+      display.textContent = memDisplay;
     }, 2000);
   }
 }
@@ -101,51 +105,27 @@ function isLastNumber(memDisplay) {
 
 function isDot(memDisplay) {
   memDisplayArray = memDisplay.split("");
-  if (memDisplayArray.indexOf(".") >= 0){
-    return true
+  if (memDisplayArray.indexOf(".") >= 0) {
+    return true;
   }
-  return false
-
+  return false;
 }
 
-//Main
+//Button Functions
 
-firstNumber = 0;
-secondNumber = "";
-memOperator = "";
-memDisplay = "";
+function pressBtnsNum(e) {
+  if (memOperator === "" && firstNumber) {
+    firstNumber = 0;
+    secondNumber = "";
+    memDisplay = "";
+  }
+  secondNumber += e.target.textContent;
+  memDisplay += e.target.textContent;
+  displayNum();
+}
 
-const display = document.querySelector(".display-txt");
-
-const btnsNum = document.querySelectorAll("[data-num]");
-
-const btnClear = document.querySelector("#clear");
-
-const btnPercentage = document.querySelector("#percentage");
-
-const btnSquareRoot = document.querySelector("#square-root");
-
-const btnNegative = document.querySelector("#negative");
-
-const btnDot = document.querySelector("#dot");
-
-const btnsOperation = document.querySelectorAll("[data-operation]");
-
-btnsNum.forEach((element) => {
-  element.addEventListener("click", (e) => {
-    if (memOperator === "" && firstNumber) {
-      firstNumber = 0;
-      secondNumber = "";
-      memDisplay = "";
-    }
-    secondNumber += e.target.textContent;
-    memDisplay += e.target.textContent;
-    displayNum();
-  });
-});
-
-btnsOperation.forEach((element) => {
-  element.addEventListener("click", (e) => {
+function pressBtnsOperation(e) {
+  {
     breakme: {
       if (memOperator && secondNumber !== "") {
         functionName = eval(memOperator);
@@ -191,18 +171,18 @@ btnsOperation.forEach((element) => {
       }
       displayNum();
     }
-  });
-});
+  }
+}
 
-btnClear.addEventListener("click", (e) => {
+function pressBtnsClear(e) {
   firstNumber = 0;
   secondNumber = 0;
   memOperator = "";
   memDisplay = "";
   displayNum();
-});
+}
 
-btnPercentage.addEventListener("click", (e) => {
+function pressBtnsPercentage(e) {
   if (secondNumber !== "" && isLastNumber(memDisplay)) {
     if (memOperator) {
       memDisplay = memDisplay.slice(0, -secondNumber.length);
@@ -215,12 +195,12 @@ btnPercentage.addEventListener("click", (e) => {
       displayNum();
     }
   }
-});
+}
 
-btnSquareRoot.addEventListener("click", (e) => {
+function pressBtnsSquareRoot(e) {
   if (secondNumber !== "" && isLastNumber(memDisplay)) {
     if (secondNumber < 0) {
-      squareRootNegative()
+      squareRootNegative();
     } else if (memOperator != "") {
       memDisplay = memDisplay.slice(0, -secondNumber.length);
       secondNumber = String(round3Decimals(secondNumber ** (1 / 2)));
@@ -232,22 +212,124 @@ btnSquareRoot.addEventListener("click", (e) => {
       displayNum();
     }
   }
+}
+
+function pressBtnsNegative(e) {
+  if (secondNumber != "") {
+    memDisplay = memDisplay.slice(0, -secondNumber.length);
+    secondNumber = String(-secondNumber);
+    memDisplay += secondNumber;
+    displayNum();
+  }
+}
+
+function pressBtnsDot(e) {
+  secondNumber = String(secondNumber);
+  if (secondNumber != "" && !isDot(secondNumber)) {
+    secondNumber += ".";
+    memDisplay += ".";
+    displayNum();
+  }
+}
+
+function pressBtnCe(e) {
+  secondNumber = String(secondNumber);
+  if (secondNumber != "") {
+    secondNumber = secondNumber.slice(0, -1);
+    memDisplay = memDisplay.slice(0, -1);
+    displayNum();
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////
+//Main
+/////////////////////////////////////////////////////////////////////////////////////
+
+firstNumber = 0;
+secondNumber = "";
+memOperator = "";
+memDisplay = "";
+
+const display = document.querySelector(".display-txt");
+
+const btnsNum = document.querySelectorAll("[data-num]");
+
+const btnClear = document.querySelector("#clear");
+
+const btnPercentage = document.querySelector("#percentage");
+
+const btnSquareRoot = document.querySelector("#square-root");
+
+const btnNegative = document.querySelector("#negative");
+
+const btnDot = document.querySelector("#dot");
+
+const btnCE = document.querySelector("#ce");
+
+const btnsOperation = document.querySelectorAll("[data-operation]");
+
+//EVENTS
+
+btnsNum.forEach((element) => {
+  element.addEventListener("click", pressBtnsNum);
 });
 
-btnNegative.addEventListener("click", e => {
-  if (secondNumber != ""){
-    memDisplay = memDisplay.slice(0, -secondNumber.length)
-    secondNumber = String(-secondNumber)
-    memDisplay += secondNumber
-    displayNum()
-  }
-})
+btnsOperation.forEach((element) => {
+  element.addEventListener("click", pressBtnsOperation);
+});
 
-btnDot.addEventListener("click", e => {
-  secondNumber = String(secondNumber)
-  if (secondNumber != "" && !isDot(secondNumber)) {
-    secondNumber += "."
-    memDisplay += "."
-    displayNum()
+btnClear.addEventListener("click", pressBtnsClear);
+
+btnPercentage.addEventListener("click", pressBtnsPercentage);
+
+btnSquareRoot.addEventListener("click", pressBtnsSquareRoot);
+
+btnNegative.addEventListener("click", pressBtnsNegative);
+
+btnDot.addEventListener("click", pressBtnsDot);
+
+btnCE.addEventListener("click", pressBtnCe);
+
+keyCode2Function = {
+  Digit1: pressBtnsNum,
+};
+
+numPad2Key = {
+  Numpad0: "Digit0",
+  Numpad1: "Digit1",
+  Numpad2: "Digit2",
+  Numpad3: "Digit3",
+  Numpad4: "Digit4",
+  Numpad5: "Digit5", //See Double click
+  Numpad6: "Digit6",
+  Numpad7: "Digit7",
+  Numpad8: "Digit8",
+  Numpad9: "Digit9",
+  NumpadDecimal: "Period",
+};
+
+window.addEventListener("keydown", (e) => {
+  numKey = e.code;
+  if (numKey in numPad2Key) {
+    numKey = numPad2Key[numKey];
   }
-})
+  element = document.querySelector(`[data-key=${numKey}]`);
+  if (element) {
+    element.click();
+  }
+});
+
+keyDouble = {};
+keyDouble.ShiftRight = false
+
+onkeydown = onkeyup = function (e) {
+  keyDouble[e.code] = e.type == "keydown";
+  if (keyDouble.ShiftRight == true && keyDouble.Digit5 == true) {
+    btnPercentage.click();
+  } else if (
+    keyDouble.ShiftRight == false &&
+    (keyDouble.Digit5 || keyDouble.Numpad5)
+  ) {
+    element = document.querySelector(['[data-num="5"]']);
+    element.click();
+  }
+};
