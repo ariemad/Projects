@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+@font-face {
+  font-family: norseBold;
+  src: url(../font/Norse-Bold.otf);
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.image-section {
+  width: 40%;
+  background-image: url(../imgs/mountain.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.text-section {
+  width: 60%;
+}
+
+.banner {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 20rem;
+  margin-top: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 16rem;
+}
+
+.logo-text {
+  font-family: norseBold, sans-serif;
+  font-size: 10rem;
+  color: #FFF;
+}
+
+/*# sourceMappingURL=style.css.map */
