@@ -1,27 +1,73 @@
-import "./style.scss"
-import _ from 'lodash';
-import MyImage from "./img/fish.jpg"
+// import _ from 'lodash';
+import "./style.scss";
+import MyImage4 from "./img/fish.jpg";
+import MyImage2 from "./img/drinks-sushi.jpg";
+import MyImage3 from "./img/friends-sushi.jpg";
+import MyImage from "./img/restaurant.jpg";
 
-function component() {
-    const element = document.createElement('div');
-  
-  // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  
-    return element;
-  }
-  
-  document.body.appendChild(component());
+function hero() {
+  const heroEl = document.createElement("div");
+  heroEl.classList.add("hero");
 
-alert("Hey you")
-  
-  const heroContentEL = document.createElement("div")
-  heroContentEL.classList.add("hero")
-  heroContentEL.textContent="Hello im heroContent"
-  
-  const imgFish = new Image()
-  imgFish.src = MyImage
-  
-  heroContentEL.appendChild(imgFish)
-  
-  document.body.append(heroContentEL)
+  const heroImgContainerEL = document.createElement("div");
+  heroImgContainerEL.classList.add("hero-img-container");
+
+  const imgFish = new Image();
+  imgFish.src = MyImage;
+  imgFish.classList.add("hero-img");
+  heroImgContainerEL.append(imgFish);
+
+  const imgFish2 = new Image();
+  imgFish2.src = MyImage2;
+  imgFish2.classList.add("hero-img");
+  heroImgContainerEL.append(imgFish2);
+
+  const imgFish3 = new Image();
+  imgFish3.src = MyImage3;
+  imgFish3.classList.add("hero-img");
+  heroImgContainerEL.append(imgFish3);
+
+  const imgFish4 = new Image();
+  imgFish4.src = MyImage4;
+  imgFish4.classList.add("hero-img");
+  heroImgContainerEL.append(imgFish4);
+
+  const heroTextEl = document.createElement("div");
+  heroTextEl.classList.add("hero-text");
+
+  const heroTitleEl = document.createElement("h1");
+  heroTitleEl.textContent = "Salmon Delight";
+  heroTextEl.append(heroTitleEl);
+
+  const heroTitle2El = document.createElement("h2");
+  heroTitle2El.textContent = "Japanese Restaurant for Sushi Lovers";
+  heroTextEl.append(heroTitle2El);
+
+  const heroTitle4El = document.createElement("p");
+heroTitle4El.textContent = ""
+heroTextEl.append(heroTitle4El);
+
+  const heroTitle3El = document.createElement("p");
+  heroTitle3El.textContent =
+    "Salmon Delight opened in 2016 on Gulf shore beach as a bar for surfers and tourists.\n Raising in popularity after winning the `Best Sushi of Gulf` and `Best SeaFood of Alabama` awards in 2018. The restaurant opened in 2019 on Orange Beach.";
+  heroTextEl.append(heroTitle3El);
+
+//   Fazer list dos premios e historico
+
+
+  heroEl.append(heroTextEl);
+  heroEl.append(heroImgContainerEL);
+
+  return heroEl;
+}
+
+//   const heroContentEL = document.createElement("div")
+//   heroContentEL.classList.add("hero")
+//   heroContentEL.textContent="Hello im heroContent"
+
+//   heroContentEL.appendChild(imgFish)
+
+//   document.body.append(heroContentEL)
+
+const contentContainer = document.getElementById("content-container");
+contentContainer.append(hero());
