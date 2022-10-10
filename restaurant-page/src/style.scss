@@ -8,6 +8,29 @@
     padding-top: 30px;
 }
 
+.grid--3-cols{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr)
+}
+
+.mrg-right{
+    margin-right: auto !important;
+}
+
+h1,
+.restaurant-name{
+    font-size: 64px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.restaurant-name{
+    margin: 0;
+    padding: 0;
+    padding-left: 36px;
+    font-weight: bold;
+}
+
 $nav-size: 100px;
 $content-width: 1200px;
 
@@ -22,8 +45,7 @@ footer{
 }
 
 #content{
-    height: calc(100vh - 2 * $nav-size);
-    // background-color: #e7f5ff; //Blue 00
+    min-height: calc(100vh - 2 * $nav-size);
     width: 100vw;
 
     display: flex;
@@ -87,6 +109,7 @@ footer{
 
 .hero-text>p {
     padding-top: 10px;
+    font-size: 20px;
     line-height: 1.5;
 }
 
@@ -104,3 +127,61 @@ footer{
         margin-top: 20px;
     }
 }
+
+
+// MENU ///////////////////////////////////////////////////
+
+.menu{
+    padding: 50px;
+    h2{
+        font-size: 40px;
+        margin-bottom: 36px;
+    }
+    h3{
+        font-size: 30px;
+    }
+    
+}
+
+.sushi-grid,
+.grilled-grid,
+.wine-grid{
+    column-gap: 50px;
+    row-gap: 24px;
+    justify-items: center;
+    text-align: center;
+    padding-bottom: 64px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// CONTACT ///////////////////////////////////////////////////
+
+.contact{
+    padding: 50px;
+}
+
+.person-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    div{
+        text-align: center;
+    }
+    img{
+        padding: 20px 20px 40px;
+        width: 400px;
+        height: 400px;
+    }
+    h2{
+        font-size: 36px;
+        margin-top: 48px;
+        padding-bottom: 12px;
+    }
+    p{
+        font-size: 20px;
+        padding-bottom: 8px;
+    }
+}
+
