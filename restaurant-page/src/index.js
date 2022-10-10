@@ -1,9 +1,40 @@
-// import _ from 'lodash';
 import "./style.scss";
 import MyImage4 from "./img/fish.jpg";
 import MyImage2 from "./img/drinks-sushi.jpg";
 import MyImage3 from "./img/friends-sushi.jpg";
 import MyImage from "./img/restaurant.jpg";
+import LocationImage from "./img/location.jpg"
+
+function nav() {
+  const navEl = document.querySelector("nav")
+
+  const textHomeEL = document.createElement("a")
+  textHomeEL.textContent = "Home"
+  navEl.append(textHomeEL)
+  textHomeEL.addEventListener("click", e => {
+    alert("Hi")
+  })
+
+    const textMenuEL = document.createElement("a")
+  textMenuEL.textContent = "Menu"
+  navEl.append(textMenuEL)
+
+    const textContactEL = document.createElement("a")
+  textContactEL.textContent = "Contact"
+  navEl.append(textContactEL)
+
+
+  
+}
+
+function footer(){
+  const footerEl = document.querySelector("footer")
+
+  const creditsEL = document.createElement("p")
+  creditsEL.textContent = "Images by: Ivan Sankov, Nicole Densmoon and Maria Bulczka"
+  footerEl.append(creditsEL)
+
+}
 
 function hero() {
   const heroEl = document.createElement("div");
@@ -44,16 +75,23 @@ function hero() {
   heroTextEl.append(heroTitle2El);
 
   const heroTitle4El = document.createElement("p");
-heroTitle4El.textContent = ""
-heroTextEl.append(heroTitle4El);
+  heroTitle4El.textContent = "";
+  heroTextEl.append(heroTitle4El);
 
   const heroTitle3El = document.createElement("p");
   heroTitle3El.textContent =
     "Salmon Delight opened in 2016 on Gulf shore beach as a bar for surfers and tourists.\n Raising in popularity after winning the `Best Sushi of Gulf` and `Best SeaFood of Alabama` awards in 2018. The restaurant opened in 2019 on Orange Beach.";
   heroTextEl.append(heroTitle3El);
 
-//   Fazer list dos premios e historico
+  const locationTitleEl = document.createElement("h2");
+  locationTitleEl.classList.add("pd-top-30");
+  locationTitleEl.textContent = "Location";
+  heroTextEl.append(locationTitleEl);
 
+  const locationImage = new Image()
+  locationImage.src = LocationImage
+  locationImage.classList.add("location-image")
+  heroTextEl.append(locationImage)
 
   heroEl.append(heroTextEl);
   heroEl.append(heroImgContainerEL);
@@ -61,13 +99,8 @@ heroTextEl.append(heroTitle4El);
   return heroEl;
 }
 
-//   const heroContentEL = document.createElement("div")
-//   heroContentEL.classList.add("hero")
-//   heroContentEL.textContent="Hello im heroContent"
-
-//   heroContentEL.appendChild(imgFish)
-
-//   document.body.append(heroContentEL)
-
 const contentContainer = document.getElementById("content-container");
+
+nav()
 contentContainer.append(hero());
+footer()

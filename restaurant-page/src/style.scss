@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.pd-top-30{
+    padding-top: 30px;
+}
+
 $nav-size: 100px;
 $content-width: 1200px;
 
@@ -12,9 +16,14 @@ nav{
     background-color: #66d9e8; //Cyan 03
 }
 
+footer{
+    height: $nav-size;
+    background-color: #66d9e8; //Cyan 03
+}
+
 #content{
-    height: calc(100vh - $nav-size);
-    background-color: #e7f5ff; //Blue 00
+    height: calc(100vh - 2 * $nav-size);
+    // background-color: #e7f5ff; //Blue 00
     width: 100vw;
 
     display: flex;
@@ -22,13 +31,36 @@ nav{
 }
 
 #content-container {
+
     width: $content-width;
+    background-color: #dee2e6;
+}
+// NAV ///////////////////////////////////////////////////
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a{
+        font-size: 36px;
+        margin: 0 48px;
+        cursor: pointer;
+    }
+}
+
+// FOOTER ///////////////////////////////////////////////////
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 // HERO ///////////////////////////////////////////////////
 
 .hero {
-    display: flex;   
+    margin: 30px;
+    display: flex;
+    padding: 30px;
 }
 
 .hero-img-container {
@@ -46,7 +78,29 @@ nav{
 }
 
 .hero-text {
-    background-color: green;
+    // background-color: green;
     width: 50%;
     text-align: center;
+    padding: 40px 12px 0px;
+
+}
+
+.hero-text>p {
+    padding-top: 10px;
+    line-height: 1.5;
+}
+
+.hero-text {
+    width: 50%;
+    text-align: center;
+    padding: 0 12px ;
+    h1 {
+        margin-bottom: 20px;
+        font-size: 64px;
+    }
+    img {
+        width: 450px;
+        height: 450px;
+        margin-top: 20px;
+    }
 }
