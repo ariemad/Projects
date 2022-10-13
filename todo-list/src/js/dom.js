@@ -1,11 +1,17 @@
+import { switchColor } from "./helper-functions";
 import { SubTask, Task } from "./todo";
 
 export class Interface {
-  constructor() {
+  update(list) {
     this.bodyEL = document.querySelector("body");
 
     this.containerEl = document.createElement("div");
     this.containerEl.classList.add("container");
+
+    
+    for (const task of list.list) {
+      this.containerEl.append(this.addTask(task))
+    }
     this.bodyEL.append(this.containerEl);
   }
 
@@ -15,6 +21,7 @@ export class Interface {
   addTask(task) {
     const taskEL = document.createElement("div");
     taskEL.classList.add("task");
+    taskEL.style.backgroundColor = task.color
 
     let taskTitle = document.createElement("h2");
     taskTitle.textContent = task.title;
@@ -24,7 +31,7 @@ export class Interface {
       taskEL.append(this.addSubTask(subTask));
     });
 
-    this.containerEl.append(taskEL);
+    return taskEL
   }
   /**
    * @param {SubTask} subTask
@@ -51,30 +58,48 @@ export class Interface {
     dueDateEL.textContent = subTask.dueDate;
     subTaskHeaderEl.append(dueDateEL);
 
-    const checkContainerEL = document.createElement("div")
-    checkContainerEL.classList.add("check-container")
+    subTaskHeaderEl.append(this.addCheckButton(subTask));
 
-    
-    const checkEl = document.createElement("div")
-    checkEl.classList.add("check")
-    if (!subTask.check){
-        checkEl.style.backgroundColor="green"
-    }
-    checkContainerEL.append(checkEl)
-    subTaskHeaderEl.append(checkContainerEL)
+    subTaskHeaderEl.addEventListener("click", (e) => {
+      if (e.target.nextSibling.classList.contains("subtask-body"))
+        e.target.nextSibling.classList.toggle("hidden");
+    });
 
     return subTaskHeaderEl;
   }
+
+  /**
+   * @param {SubTask} subTask
+   */
+  addCheckButton(subTask) {
+    const checkContainerEL = document.createElement("div");
+    checkContainerEL.classList.add("check-container");
+    const checkEl = document.createElement("div");
+    checkEl.classList.add("check");
+
+    checkEl.style.backgroundColor = subTask.check;
+
+    checkEl.addEventListener("click", (e) => {
+      checkEl.style.backgroundColor = switchColor(
+        checkEl.style.backgroundColor
+      );
+    });
+
+    checkContainerEL.append(checkEl);
+
+    return checkContainerEL;
+  }
+
   /**
    * @param {SubTask} subTask
    */
   addSubTaskBody(subTask) {
     const subTaskBodyEl = document.createElement("div");
-    subTaskBodyEl.classList.add("subtask-body");
+    subTaskBodyEl.classList.add("subtask-body", "hidden");
 
-    const descriptionEl = document.createElement("p")
-    descriptionEl.textContent = subTask.description
-    subTaskBodyEl.append(descriptionEl)
+    const descriptionEl = document.createElement("p");
+    descriptionEl.textContent = subTask.description;
+    subTaskBodyEl.append(descriptionEl);
 
     return subTaskBodyEl;
   }
