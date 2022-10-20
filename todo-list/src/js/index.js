@@ -1,21 +1,22 @@
-import "../css/style.scss";
-import "../css/general.scss";
-import _ from "lodash";
-import { addTask, container, DOM, Interface } from "./dom";
-import { List, SubTask, Task } from "./todo";
+import '../css/style.scss';
+import '../css/general.scss';
+import Interface from './Interface';
+import SubTask from './SubTask';
+import Task from './Task';
+import { List } from './List';
 
-let interface_ = new Interface()
+const container = new Interface();
 
-let myTask = new Task()
-let myTask2 = new Task()
-let mySubTask = new SubTask()
-myTask.addSubTask(mySubTask)
-myTask.addSubTask(mySubTask)
-myTask2.addSubTask(mySubTask)
-myTask2.addSubTask(mySubTask)
-myTask2.addSubTask(mySubTask)
+const myTask = new Task();
+const myTask2 = new Task();
+const mySubTask = new SubTask();
+myTask.addSubTask(mySubTask);
+myTask.addSubTask(mySubTask);
+myTask2.addSubTask(mySubTask);
+myTask2.addSubTask(mySubTask);
+myTask2.addSubTask(mySubTask);
 
-let myList = new List()
-myList.addTask(myTask)
-myList.addTask(myTask2)
-interface_.update(myList)
+const myList = new List();
+myList.addTask(myTask);
+myList.addTask(myTask2);
+container.update(myList);
