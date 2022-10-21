@@ -1,3 +1,4 @@
+import Search from '../img/search-svgrepo-com.svg';
 import { updateDisplay } from './weatherDisplay';
 
 function weatherSearchBar() {
@@ -11,7 +12,11 @@ function weatherSearchBar() {
 
   const btn = document.createElement('button');
   btn.classList.add('btn');
-  btn.textContent = 'Search';
+
+  const img = new Image();
+  img.src = Search;
+  btn.append(img);
+
   btn.addEventListener('click', () => {
     const toSearch = input.value;
     input.value = '';

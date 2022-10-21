@@ -1,20 +1,32 @@
-import { update } from 'lodash';
+import WeatherClear from '../img/weather-description/clear.jpg';
+import WeatherClouds from '../img/weather-description/clouds.jpg';
+import WeatherDrizzle from '../img/weather-description/drizzle.jpg';
+import WeatherRain from '../img/weather-description/rain.jpg';
+import WeatherSnow from '../img/weather-description/snow.jpg';
+import WeatherThunderstorm from '../img/weather-description/thunderstorm.jpg';
+
 import Temp from '../img/thermometer-svgrepo-com.svg';
 import Wind from '../img/wind-svgrepo-com (2).svg';
 import Cloud from '../img/cloud-svgrepo-com.svg';
+
 import Weather from './weather';
 
 function updateBackground(description) {
-  const table = {
-    Clouds: '',
-    Clear: '',
-    Snow: '',
-    Rain: '',
-    Drizzle: '',
-    Thunderstorm: '',
-  };
-  document.body.style.backgroundImage = table[description];
+  if (description === undefined) {
+    document.body.style.backgroundColor = '#bbb';
+  } else {
+    const table = {
+      Clouds: WeatherClouds,
+      Clear: WeatherClear,
+      Snow: WeatherSnow,
+      Rain: WeatherRain,
+      Drizzle: WeatherDrizzle,
+      Thunderstorm: WeatherThunderstorm,
+    };
+    document.body.style.backgroundImage = `url(${table[description]})`;
+  }
 }
+
 function weatherDisplay() {
   const container = document.getElementById('container');
 
@@ -73,4 +85,4 @@ async function updateDisplay(toSearch) {
   display.classList.remove('hidden');
 }
 
-export { weatherDisplay, updateDisplay };
+export { weatherDisplay, updateDisplay, updateBackground };
